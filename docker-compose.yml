@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+ php:
+  build:
+   context: ./
+   dockerfile: Dockerfile
+  container_name: php8_fpm
+  restart: always
+  working_dir: /var/www/
+  volumes:
+   - ./www:/var/www
+   
+ nginx:
+  image: nginx
+  container_name: nginx_php
+  restart: always
+  ports:
+   - "8088:80"
+  volumes:
+   - ./www:/var/www
+   - ./nginx:/etc/nginx/conf.d
